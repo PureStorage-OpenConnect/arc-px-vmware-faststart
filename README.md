@@ -300,5 +300,9 @@ Subsequent stages in in the development of this work includes:
 - Deployment of a MetalLB load balancer
 - Deployment of Azure Data Services with load balancer endpoints
 
+# Feedback
+
+Feedback is welcome and should be submitted via the creation of issues.
+
 # Credits 
 Credit goes to both the EMEA Solutions Architects; Eugenio Grosso and Joe Gardiner for helping in putting this work together.
