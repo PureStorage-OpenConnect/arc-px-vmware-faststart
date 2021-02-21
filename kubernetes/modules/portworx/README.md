@@ -4,9 +4,14 @@ This module deploys Portworx to the target kubernetes cluster and creates a stor
 
 # Usage
 
+## Apply
+
+Execute the following command from the `Arc-PX-VMware-Faststart/kubernetes` directory
 ```
 terraform apply -target=module.portworx --auto-approve 
 ```
+
+## Destroy
 
 Currently the only reversal action for this module is to recreate the kubernetes cluster.
 
