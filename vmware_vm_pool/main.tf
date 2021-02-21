@@ -7,6 +7,6 @@ provider "vsphere" {
   allow_unverified_ssl = true
 }
 
-module "kubernetes_cluster_vm_pool" {
+module "virtual_machine" {
   source = "./modules/virtual_machine"
 }
