@@ -17,7 +17,7 @@ terraform apply -target=module.virtual_machine --auto-approve
 Execute the following command from the `Arc-PX-VMware-Faststart/vmware_vm_pool` directory
 ```
 terraform destroy -target=module.virtual_machine --auto-approve 
-
+```
 # Dependencies
 
 - a VMware vSphere cluster is available 
