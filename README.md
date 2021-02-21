@@ -1,7 +1,24 @@
 # Introduction
 
-This repository contains terraform files that will create a Kubernetes cluster on VMware vSphere using a virtual machine template. The ultimate aim of this work is to 
-be able to deploy an Azure Arc for Data Services controller or SQL Server 2019 Big Data Cluster to a virtualized infrastrutcure with little or no human intervention.
+This repository contains terraform terraform configurations for deploying SQL Server 2019 Big Data Clusters and Azure Arc Enabled Data Services Controllers to infrastructure 
+virtualized via VMware. The "Full stack" solution involves the deployment of four terraform configurations:
+
+- [virtual_machine](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/vmware_vm_pool/modules/virtual_machine/README.md) module for creating 
+  virtual machines to underpin a kubernetes cluster on, this requires that an Ubuntu 18.04 virtual machine template is created, as detailed in the instructions provided
+  in this documentation. 
+
+- [kubernetes_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/kubernetes_cluster/README.md) module for creating am 
+  kubernetes cluster.
+
+- [portworx](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/portworx/README.md) module for deploying portworx to a kubernetes
+  cluster. Portworx is a 100% software defined Kubernetes storage solution that can deployed to Red Hat OpenShift, Kubernetes on-premises, Google Anthos, AKS, EKS or GKE. 
+  **Note that [Portworx Essentials](https://docs.portworx.com/concepts/portworx-essentials/) is free to use.**
+  
+- [big_data_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/big_data_cluster/README.md) module for deploying
+  a big data cluster to a kubernetes cluster.
+  
+- [azure_arc_ds_controller](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/azure_arc_ds_controller/README.md) module
+  for deploying an Azure Arc enabled Data Services Controller to a kubernetes cluster.
 
 # Prerequisites
 
@@ -12,20 +29,6 @@ be able to deploy an Azure Arc for Data Services controller or SQL Server 2019 B
 - Template virtual machine with Ubuntun 18.04 server as the guest OS
 - An Azure account
 - Azure CLI installed on the build server
-
-# Workflow
-
-A high level overview of the end-to-end deployment process is as follows, click on the relevant module name for full documentation on that module:
-
-- Configure and deploy the [kubernetes_cluster_vm_pool](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/vmware_vm_pool/README.md) module
-- Configure the VMware vSphere variables in the root module
-- Configure and deploy the [kubernetes_cluster](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/kubernetes_cluster/README.md) module
-- Configure and deploy the [portworx](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/portworx/README.md) module, this requires 
-  that a portworx spec is created as per the instructions in this README.md
-- Configure and deploy the [azure_arc_ds_controller](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/azure_arc_ds_controller/README.md) 
-  module, if an Azure Arc enabled Data Services controller is required
-- Configure and deploy the [big_data_cluster](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/big_data_cluster/README.md) 
-  module, if a SQL Server 2019 Big Data Cluster is required
   
 # Environment Config Has Been Tested With
 
