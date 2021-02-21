@@ -4,15 +4,18 @@ This module deploys a SQL Server 2019 Big Data Cluster to the target kubernetes 
 
 # Usage
 
+## Apply
+
+Execute the following command from the `Arc-PX-VMware-Faststart/azure_data_services` directory
 ```
-terraform init
 terraform apply -target=module.big_data_cluster --auto-approve 
 ```
-in the `Arc-Px-VMware-Faststart/azure_data_services` directory
 
-To reverse this action, execute:
+## Destroy
+
+Execute the following command from the `Arc-PX-VMware-Faststart/azure_data_services` directory
 ```
-terraform destroy -target=module.big_data_cluster 
+terraform destroy -target=module.big_data_cluster --auto-approve 
 ```
 
 # Dependencies
