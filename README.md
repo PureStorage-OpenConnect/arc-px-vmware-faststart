@@ -20,8 +20,8 @@ A high level overview of the end-to-end deployment process is as follows, click 
 - Configure and deploy the [kubernetes_cluster_vm_pool](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/vmware_vm_pool/README.md) module
 - Configure the VMware vSphere variables in the root module
 - Configure and deploy the [kubernetes_cluster](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/kubernetes_cluster/README.md) module
-- Configure and deploy the [portworx](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/portworx/README.md) module, this requires that a 
-  portworx spec is created as per the instructions in this README.md
+- Configure and deploy the [portworx](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/portworx/README.md) module, this requires 
+  that a portworx spec is created as per the instructions in this README.md
 - Configure and deploy the [azure_arc_ds_controller](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/azure_arc_ds_controller/README.md) 
   module, if an Azure Arc enabled Data Services controller is required
 - Configure and deploy the [big_data_cluster](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/big_data_cluster/README.md) 
