@@ -11,7 +11,7 @@ This module:
 terraform init
 terraform apply -target=module.azure_arc_ds_controller --auto-approve 
 ```
-in the `arc-px-vmware-faststart/modules/azure_arc_ds_controller` directory
+in the `arc-px-vmware-faststart/azure_data_services/modules/azure_arc_ds_controller` directory
 
 To reverse this action, execute:
 ```
