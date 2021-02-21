@@ -1,3 +1,7 @@
 module "kubernetes_cluster" {
-  source = "./modules/deploy_kubernetes"
+  source = "./modules/kubernetes_cluster"
+}
+  
+module "portworx" {
+  source = "./modules/portworx"
 }
