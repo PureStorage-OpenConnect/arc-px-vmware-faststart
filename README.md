@@ -1,6 +1,6 @@
 # Introduction
 
-This repository contains terraform terraform configurations for deploying SQL Server 2019 Big Data Clusters and Azure Arc Enabled Data Services Controllers to infrastructure 
+This repository contains terraform configurations for deploying SQL Server 2019 Big Data Clusters and Azure Arc Enabled Data Services Controllers to infrastructure 
 virtualized via VMware. The "Full stack" solution involves the deployment of four terraform configurations:
 
 - [virtual_machine](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/vmware_vm_pool/modules/virtual_machine/README.md) module for creating 
@@ -19,6 +19,13 @@ virtualized via VMware. The "Full stack" solution involves the deployment of fou
   
 - [azure_arc_ds_controller](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/azure_arc_ds_controller/README.md) module
   for deploying an Azure Arc enabled Data Services Controller to a kubernetes cluster.
+  
+**However**, each module can be deployed independantly, meaning - if you are using:
+
+- GKE, EKS, OpenShift or a Kubernetes cluster deployed to (for example) a NUC based home lab, you can use the portworx, Big Data Cluster and Azure Arc Enabled Data
+  Services Controller modules.
+- Infrastructure you have already provisioned on Hyper-V or Linux KVM, you can still use the kubernetes, portworx, Big Data Cluster and Azure Arc Enabled Data Services
+  Controller modules.  
 
 # Prerequisites
 
