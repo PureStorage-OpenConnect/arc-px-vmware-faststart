@@ -267,7 +267,7 @@ The following steps are to be performed on the same machine used to copy the pub
 5. In the interests of allowing usets of this repo to pick which configurations they wish to deploy, there are three subdirectories containing different `terraform` configurations:
 
 - vmware_vm_pool
-  - use the virtual_machine module to create the virtual machines that underpin your kubernetes cluster - using the template created as per the instuctions provided earlier
+  - use the [virtual_machine](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/vmware_vm_pool/modules/virtual_machine/README.md) module to create the virtual machines that underpin your kubernetes cluster - using the template created as per the instuctions provided earlier
     in this README 
   
 - kubernetes
