@@ -25,15 +25,54 @@ The minimum set of variables that need to be configured consists of those with n
 
 | Name                        | Data type | Description / Notes                                                 | Mandatory (Y/N) | Default Value                   |
 |-----------------------------|-----------|---------------------------------------------------------------------|-----------------|---------------------------------|
-| use_csi                     | boolean   | Set to true if the Portworx spec has been created with              |        Y        | false                           |
-| px_repl_factor              | number    | Number of persistent volume replicas to create for HA purposes      |        Y        | 2                               |
-| px_spec                     | string    | URL for Portworx spec YAML manifest file                            |        Y        | **No default value**            |
-| use_stork                   | boolean   | Determines whether the storage aware schedule should be used        |        Y        | true                            |
+| kubernetes_version          | string    | Set to true if the Portworx spec has been created with              |        Y        | 1.19.7                          |
+| kubespray_inventory         | string    | Dir. under /home/<user>/kubespray/inventory for the cluster config  |        Y        | ca_bdc                          |
 
-**Note:** Stork is not relevant when shared SAN type storage is in use.
+Node host configuration information is specified in the following variable:
+```
+variable "node_hosts" {
+  default = {
+    "z-ca-bdc-control1" = {
+       name          = "z-ca-bdc-control1"
+       compute_node   = false
+       etcd_instance = "etcd1"
+       ipv4_address  = "192.168.123.88"
+    },
+    "z-ca-bdc-control2" =  {
+       name          = "z-ca-bdc-control2"
+       compute_node   = false
+       etcd_instance = "etcd2"
+       ipv4_address  = "192.168.123.89"
+    },
+    "z-ca-bdc-compute1" = {
+       name          = "z-ca-bdc-compute1"
+       compute_node   = true
+       etcd_instance = "etcd3"
+       ipv4_address  = "192.168.123.90"
+    },
+    "z-ca-bdc-compute2" = {
+       name          = "z-ca-bdc-compute2"
+       compute_node   = true
+       etcd_instance = ""
+       ipv4_address  = "192.168.123.91"
+    },
+    "z-ca-bdc-compute3" = {
+       name          = "z-ca-bdc-compute3"
+       compute_node   = true
+       etcd_instance = ""
+       ipv4_address  = "192.168.123.92"
+    }
+  }
+}
+```
+**Note**
+- Specify true for the `compute_node` attribute if the host is a worker node, otherwise set this to false
+- Specify a name for the `etcd_instance` attribute is the node host hosts an etcd instance
+- The example provided will lead to the creation of a kubernetes cluster with three etcd instance, two control plane nodes and three worker (or compute) nodes, to reuse
+  this simply provide the actual IP addresses for your servers in place of the 192.168.123.x addresses used in the example
 
 # Known Issues / Limitations
 
-Destroy provisioner yet be implemented for the null resource that deploys the kubernetes cluster. 
+A destroy provisioner is yet be implemented for the null resource that deploys the kubernetes cluster. 
 
 [Back to root module](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/README.md)
