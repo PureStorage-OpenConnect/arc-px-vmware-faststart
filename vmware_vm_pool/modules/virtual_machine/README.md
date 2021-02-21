@@ -1,3 +1,8 @@
+
+# Overview
+
+This module creates virtual machines based on a template via the terraform VMware vSphere provider
+
 # Usage
 
 - Configure the variables in the `vmware_vm_pool\modules\virtual_machine\variables.tf` file per the instructions below
@@ -10,10 +15,6 @@ To reverse this action, execute:
 ```
 terraform destroy -target=module.virtual_machine 
 ```
-
-# Overview
-
-This module creates virtual machines based on a template via the terraform VMware vSphere provider
 
 # Dependencies
 
