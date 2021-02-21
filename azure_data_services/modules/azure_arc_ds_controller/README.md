@@ -1,22 +1,22 @@
-# Usage
-
-```
-terraform apply -target=module.azure_arc_ds_controller --auto-approve 
-```
-
-If the aim is to execute this module without the requirement to execute any of the other related modules, execute:
-
-- `terraform init` 
-- `terraform apply`
-
-in the `arc-px-vmware-faststart/modules/azure_arc_ds_controller` directory
-
 # Overview
 
 This module:
 - Creates an Azure service principal and role assignment for the Azure Arc Enabled Data Service controller
 - Deploys a controller via calls to the azdata CLI, if a configuration directory already exists with the same name as that specified by the arc_data_profile_dir 
   varaible, the module will rename the current profile directory by appending the date and time to the end of its name
+
+# Usage
+
+```
+terraform init
+terraform apply -target=module.azure_arc_ds_controller --auto-approve 
+```
+in the `arc-px-vmware-faststart/modules/azure_arc_ds_controller` directory
+
+To reverse this action, execute:
+```
+terraform destroy -target=module.azure_arc_ds_controller 
+```
 
 # Dependencies
 
