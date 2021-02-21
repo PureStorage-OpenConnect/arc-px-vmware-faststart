@@ -1,88 +1,128 @@
-# Introduction
+# Usage
 
-This repository contains terraform files that will create a Kubernetes cluster on VMware vSphere using a virtual machine template. The ultimate aim of this work is to 
-be able to deploy an Azure Arc for Data Services controller or SQL Server 2019 Big Data Cluster to a virtualized infrastrutcure with little or no human intervention.
+- Configure the variables in the `vmware_vm_pool\modules\virtual_machine\variables.tf` file per the instructions below
+- Execute the following commands from within the `vmware_vm_pool` directory: 
+```
+terraform init
+terraform apply -target=module.virtual_machine --auto-approve 
+```
+To reverse this action, execute:
+```
+terraform destroy -target=module.virtual_machine 
+```
 
-# Workflow
+# Overview
 
-- Create virtual machines to host the Kubnernetes cluster master and worker nodes
-- Git clone kubespray 
-- Create an ansible inventory file for kubespray
-- Execute `ansible-playbook` in order to create the Kubernete cluster
+This module creates virtual machines based on a template via the terraform VMware vSphere provider
 
-# Prerequisites
+# Dependencies
 
-- VMware vSphere cluster
-- Linux host that can talk to the vSphere endpoint, referred to as "the client machine" hereafter 
-- Terraform and git installed on client machine
-- The user under which terraform is executed as is a member of the sudo-ers group on the client machine (use visudo)
-- Template virtual machine
-  - OS user with ssh keys copied from client machine that terraform is instigated from - the same user that `terraform apply` is run as
-  - `/etc/sshd_config` configured such that ssh does not prompt for passwords
-  - No YAML file present in `/etc/netplan` directory
-  - `preserve_hostname` set to true in `/etc/cloud/cloud.cfg` 
+- a VMware vSphere cluster is available 
+- a template virtual machine created per the instructions in the [README.md](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/README.md) 
+  file in the root of this repository
 
-# Environment Config Has Been Tested With
+# Variables
 
-- VMware vSphere 7.0.1
-- Terraform v0.14.5 with the following providers
-  - registry.terraform.io/hashicorp/local v2.0.0
-  - registry.terraform.io/hashicorp/null v3.0.0
-  - registry.terraform.io/hashicorp/template v2.2.0
-  - provider registry.terraform.io/hashicorp/vsphere v1.24.3
-- Linux client: Ubuntu 18.04
-- Virtual machine template guest OS: Ubuntu 18.04
-- Kubespray 2.15.0
+The minimum set of variables that need to be configured consists of those with no default values.
 
-# Instructions
+| Name                        | Data type | Description / Notes                                             | Mandatory (Y/N) | Default Value         |
+|-----------------------------|-----------|-----------------------------------------------------------------|-----------------|-----------------------|
+| vsphere_dc                  | string    | VMware vSphere datacenter object name                           |        Y        | **No default value**  |     
+| vsphere_cluster             | string    | VMware vSphere datacenter cluster name                          |        Y        | **No default value**  |
+| vsphere_host                | string    | Server in the vSphere cluster that virtual machines will run on |        Y        | **No default value**  |
+| vsphere_datastore           | string    | Datastore for virtual machine storage                           |        Y        | **No default value**  |
+| vsphere_network             | string    | Virtulized network for use by virtual machines                  |        Y        | **No default value**  |
+| vsphere_resource_pool       | string    | Resource pool that virtual machines are to be allocated to      |        Y        | **No default value**  |
+| vm_template                 | string    | Template used for virtual machine creation                      |        Y        | ubuntu-18.04-template |
+| vm_domain                   | string    |                                                                 |        Y        |                       |
+| vm_linked_clone             | boolean   | Specifies whether a virtual machine shares disk(s) with a parent|        Y        | false                 |
 
-This section assumes the use of Ubuntu 18.04.
+The copnfiguration information for the virtual machines created by this module is stored in the `virtual_machines` variable:
+```
+variable "virtual_machines" {
+  default = {
+    "z-ca-bdc-control1" = {
+       name          = "z-ca-bdc-control1"
+       compute_node  = false
+       ipv4_address  = "192.168.123.88"
+       ipv4_netmask  = "22"
+       ipv4_gateway  = "192.168.123.1"
+       dns_server    = "192.168.123.2"
+       ram           = 8192 
+       logical_cpu   = 4
+       os_disk_size  = 120
+       px_disk_size  = 0
+    },
+    "z-ca-bdc-control2" =  {
+       name          = "z-ca-bdc-control2"
+       compute_node  = false
+       ipv4_address  = "192.168.123.89"
+       ipv4_netmask  = "22"
+       ipv4_gateway  = "192.168.123.1"
+       dns_server    = "192.168.123.2"
+       ram           = 8192
+       logical_cpu   = 4
+       os_disk_size  = 120
+       px_disk_size  = 0
+    },
+    "z-ca-bdc-compute1" = {
+       name          = "z-ca-bdc-compute1"
+       compute_node  = true
+       ipv4_address  = "192.168.123.90"
+       ipv4_netmask  = "22"
+       ipv4_gateway  = "192.168.123.1"
+       dns_server    = "192.168.123.2"
+       ram           = 73728
+       logical_cpu   = 12
+       os_disk_size  = 120
+       px_disk_size  = 120 
+    },
+    "z-ca-bdc-compute2" = {
+       name          = "z-ca-bdc-compute2"
+       compute_node  = true
+       ipv4_address  = "192.168.123.91"
+       ipv4_netmask  = "22"
+       ipv4_gateway  = "192.168.123.1"
+       dns_server    = "192.168.123.2"
+       ram           = 73728
+       logical_cpu   = 12
+       os_disk_size  = 120
+       px_disk_size  = 120
+    },
+    "z-ca-bdc-compute3" = {
+       name          = "z-ca-bdc-compute3"
+       compute_node  = true
+       ipv4_address  = "192.168.123.92"
+       ipv4_netmask  = "22"
+       ipv4_gateway  = "192.168.123.1"
+       dns_server    = "192.168.123.2"
+       ram           = 73728 
+       logical_cpu   = 12
+       os_disk_size  = 120
+       px_disk_size  = 120
+    }
+  }
+}
+```
+In addtion to these variables the following variables in the `variables.tf` to be found in the root of this repo also need to be set 
 
-1. Make the Hashicorp package repository trusted:
+| Name                        | Data type | Description / Notes                                             | Mandatory (Y/N) | Default Value         |
+|-----------------------------|-----------|-----------------------------------------------------------------|-----------------|-----------------------|
+| vsphere_user                | string    | Name of user used to connect to VMware vSphere with             |        Y        | **No default value**  |     
+| vsphere_server              | string    | VMware vSphere vCenter IP address                               |        Y        | **No default value**  |
 
-   `curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -`
+**VSPHERE_PASSWORD** - the password for the user used to connect to vSphere vCenter with can be specified via the TF_VAR_VSPHERE_PASSWORD environment
+variable, alternatively it can be specified when prompted for after issuing `terraform apply`
 
-2. Add the Hashicorp repository:
+**Note**
+- The compute node attribute should be set to true for virtual machine that host worker nodes, otherwise it should be set to false
+- 120GB for the OS disk size was found to be the smallest size that could accomodated big data cluster container images, when configuring the guest OS, 
+  half of this is allocated to the root filesystem, the rest is left free in reserve - a negligable overhead for datastores backed by thin provisioned
+  storage 
+- only assign the `px_disk_size` attribute a value for virtual machines that host worker nodes (`compute_node = true`)
 
-   `sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"`
+# Known Issues / Limitations
 
-3. Install git and terraform:
+None noted
 
-   `sudo apt-get install terraform git`
-
-4. Git clone this repo:
-
-`git clone xxx`
-
-5. Edit the virtual_machines.tf file, some salient points:
-- Only worker nodes require px_disk_size to be set to a value greater than zero (disk Portworx volumes are created on), set this to 0 for master nodes
-- The ipv4 subnet mask is in CIDR format
-- In the example file provided, memory and logical CPU are specified for the minimum worker node requirement for Portworx and SQL Server 2019 Big Data Cluster nodes.
-
-6. Edit the vsphere.tf file, pay special attention to the format of the `vsphere_resource_pool` variable, it is: 
-
-   `/<data_center>/host/<cluster>/Resources/<resource_pool>`
-  
-7. Edit the kubernetes.tf file, this contains a single variable for the name of the subdirectory under which the kubespray (ansible) inventory directory will be created for your
-   Kubernetes cluster. If for example this is set to `k8s_dev` and the user that `terraform apply` is executed under as is bdcuser, the inventory file will be contained in the
-   directory:
-
-   `/home/bdcuser/kubespray/inventory/k8s_dev`
-
-8. Execute `terraform init` in order to download the terraform providers
-
-9. Execute `terraform plan` in order to generate an execution plan, this also serves to check that variables are correct, for example if a VMware datastore has been
-   specified that is incorrect, the VMware vSphere provider will report this.
-  
-10. Add the ip address, hostname pairs of the virtual machines in the `virtual_machines.tf` file to the `/etc/hosts` file on the client machine that terraform is to be run from. 
-  
-11. Execute `terraform apply`.
-
-12. After approximately a minute and a half into the exection of the terraform config, a prompt will appear asking for the psuedo password for the Kubespray `ansible-playbook become-as-user`.
-
-# To Do
-
-Subsequent stages in in the development of this work inckudes:
-
-- The deployment of Portworx to the Kubernetes cluster
-- Deployment of an Azure Arc for Data Service controller or SQL Server 2019 Big Data Cluster to the cluster.
+[Back to root module](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/README.md)
