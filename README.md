@@ -17,7 +17,7 @@ be able to deploy an Azure Arc for Data Services controller or SQL Server 2019 B
 
 A high level overview of the end-to-end deployment process is as follows, click on the relevant module name for full documentation on that module:
 
-- Configure and deploy the [kubernetes_cluster_vm_pool](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/kubernetes_cluster_vm_pool/README.md) module
+- Configure and deploy the [kubernetes_cluster_vm_pool](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/vmware_vm_pool/README.md) module
 - Configure the VMware vSphere variables in the root module
 - Configure and deploy the [kubernetes_cluster](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/kubernetes_cluster/README.md) module
 - Configure and deploy the [portworx](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/portworx/README.md) module, this requires that a 
