@@ -271,7 +271,7 @@ The following steps are to be performed on the same machine used to copy the pub
     in this README 
   
 - kubernetes
-  - use the kubernetes_cluster module for creating a kubernetes cluster
+  - use the [kubernetes_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/kubernetes_cluster/README.md) module for creating a kubernetes cluster
   - use the [portworx](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/portworx/README.md) module for deploying portworx to a kubernetes cluster
   
 - azure_data_services
