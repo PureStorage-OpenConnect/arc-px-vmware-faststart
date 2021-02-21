@@ -218,7 +218,7 @@ network:
 
 35. In VMware vCenter right click on the ubuntu-18.04-template virtual machine, select template and then the option to convert this to a template.
 
-## Portworx Spec creation
+## Portworx Spec Creation
 
 1. Log into [Portworx Central](https://central.portworx.com/specGen/wizard)
 
