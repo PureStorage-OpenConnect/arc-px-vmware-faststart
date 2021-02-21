@@ -267,16 +267,16 @@ The following steps are to be performed on the same machine used to copy the pub
 5. In the interests of allowing usets of this repo to pick which configurations they wish to deploy, there are three subdirectories containing different `terraform` configurations:
 
 - vmware_vm_pool
--- use the virtual_machine module to create the virtual machines that underpin your kubernetes cluster - using the template created as per the instuctions provided earlier
+ - use the virtual_machine module to create the virtual machines that underpin your kubernetes cluster - using the template created as per the instuctions provided earlier
    in this README 
   
 - kubernetes
--- use the kubernetes_cluster module for creating a kubernetes cluster
--- use the [portworx](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/portworx/README.md) module for deploying portworx to a kubernetes cluster
+ - use the kubernetes_cluster module for creating a kubernetes cluster
+ - use the [portworx](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/portworx/README.md) module for deploying portworx to a kubernetes cluster
   
 - azure_data_services
--- use the big_data_cluster module for deploying a big data cluster to the kubernetes cluster
--- use the azure_arc_ds_controller module for deploying an Azure Arc enabled Data Services Controller to the kubernetes cluster
+ - use the big_data_cluster module for deploying a big data cluster to the kubernetes cluster
+ - use the azure_arc_ds_controller module for deploying an Azure Arc enabled Data Services Controller to the kubernetes cluster
 
 # Known Issues / Limitations
 
