@@ -272,7 +272,7 @@ The following steps are to be performed on the same machine used to copy the pub
   
 - kubernetes
 -- use the kubernetes_cluster module for creating a kubernetes cluster
--- use the portworx module for deploying portworx to a kubernetes cluster
+-- use the [portworx](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/portworx/README.md) module for deploying portworx to a kubernetes cluster
   
 - azure_data_services
 -- use the big_data_cluster module for deploying a big data cluster to the kubernetes cluster
