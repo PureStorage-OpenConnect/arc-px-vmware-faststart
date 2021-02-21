@@ -288,6 +288,8 @@ The following steps are to be performed on the same machine used to copy the pub
   - use the [big_data_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/big_data_cluster/README.md) module for deploying a big data cluster to the kubernetes cluster
   - use the [azure_arc_ds_controller](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/azure_arc_ds_controller/README.md) module for deploying an Azure Arc enabled Data Services Controller to the kubernetes cluster
 
+Click on the module name link for documentation on how to deploy a specific module, before issuing `terraform apply` for the first time in any directory, always run `terraform init`. 
+
 # Known Issues / Limitations
 
 This configuration does not currently work with a virtual macine template based on Ubuntu versions 20.04/20.10
