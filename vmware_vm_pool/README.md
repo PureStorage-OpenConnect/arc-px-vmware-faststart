@@ -114,13 +114,6 @@ In addtion to these variables the following variables in the `variables.tf` to b
 **VSPHERE_PASSWORD** - the password for the user used to connect to vSphere vCenter with can be specified via the TF_VAR_VSPHERE_PASSWORD environment
 variable, alternatively it can be specified when prompted for after issuing `terraform apply`
 
-**AZDATA_PASSWORD** - can be specified via the TF_VAR_AZDATA_PASSWORD environment variable, alternatively it can be specified when prompted for after
-issuing `terraform apply`
-
-To reiterate the point made earlier, if all you are interested in is deploying this one module and none of the other related modules, execute the 
-terraform commands in the directory containing the HCL code for this module - this removes the need to specify variables in the `variables.tf` files
-for all of the other modules.
-
 **Note**
 - The compute node attribute should be set to true for virtual machine that host worker nodes, otherwise it should be set to false
 - 120GB for the OS disk size was found to be the smallest size that could accomodated big data cluster container images, when configuring the guest OS, 
