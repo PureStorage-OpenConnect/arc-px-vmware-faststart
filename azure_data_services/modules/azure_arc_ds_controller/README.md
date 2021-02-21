@@ -7,16 +7,18 @@ This module:
 
 # Usage
 
+## Apply
+
+Execute the following command from the `Arc-PX-VMware-Faststart/azure_data_services` directory
 ```
-terraform init
 terraform apply -target=module.azure_arc_ds_controller --auto-approve 
 ```
-in the `Arc-Px-VMware-Faststart/azure_data_services` directory
 
-To reverse this action, execute:
+## Destroy
+
+Execute the following command from the `Arc-PX-VMware-Faststart/azure_data_services` directory
 ```
-terraform destroy -target=module.azure_arc_ds_controller 
-```
+terraform destroy -target=module.azure_arc_ds_controller --auto-approve 
 
 # Dependencies
 
