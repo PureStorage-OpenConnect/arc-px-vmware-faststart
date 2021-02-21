@@ -37,7 +37,7 @@ The minimum set of variables that need to be configured consists of those with n
 | vm_domain                   | string    |                                                                 |        Y        |                       |
 | vm_linked_clone             | boolean   | Specifies whether a virtual machine shares disk(s) with a parent|        Y        | false                 |
 
-The copnfiguration information for the virtual machines created by this module is stored in the `virtual_machines` variable:
+The configuration information for the virtual machines created by this module is stored in the `virtual_machines` variable:
 ```
 variable "virtual_machines" {
   default = {
