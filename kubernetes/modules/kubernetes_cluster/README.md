@@ -4,9 +4,14 @@ This module deploys a kubernetes cluster, installs kubectl and creates a context
 
 # Usage
 
+## Apply
+
+Execute the following command from the `Arc-PX-VMware-Faststart/kubernetes` directory
 ```
 terraform apply -target=module.kubernetes_cluster --auto-approve 
 ```
+
+## Destroy
 
 There is currently no destroy provisioner built into the module by which this action can be reversed, the following command should therefore be used:
 ```
