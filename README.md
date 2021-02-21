@@ -276,7 +276,7 @@ The following steps are to be performed on the same machine used to copy the pub
   
 - azure_data_services
   - use the [big_data_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/big_data_cluster/README.md) module for deploying a big data cluster to the kubernetes cluster
-  - use the azure_arc_ds_controller module for deploying an Azure Arc enabled Data Services Controller to the kubernetes cluster
+  - use the [azure_arc_ds_controller](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/azure_arc_ds_controller/README.md) module for deploying an Azure Arc enabled Data Services Controller to the kubernetes cluster
 
 # Known Issues / Limitations
 
