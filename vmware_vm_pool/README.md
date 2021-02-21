@@ -8,7 +8,7 @@ terraform apply -target=module.virtual_machine --auto-approve
 ```
 To reverse this action, execute:
 ```
-terraform destroy -target=module.virtual_machine --auto-approve 
+terraform destroy -target=module.virtual_machine 
 ```
 
 # Overview
