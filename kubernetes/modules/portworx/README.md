@@ -1,12 +1,14 @@
+# Overview
+
+This module deploys Portworx to the target kubernetes cluster and creates a storage class
+
 # Usage
 
 ```
 terraform apply -target=module.portworx --auto-approve 
 ```
 
-# Overview
-
-This module deploys Portworx to the target kubernetes cluster and creates a storage class
+Currently the only reversal action for this module is to recreate the kubernetes cluster.
 
 # Dependencies
 
