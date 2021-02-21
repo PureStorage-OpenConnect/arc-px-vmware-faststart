@@ -1,8 +1,4 @@
 # Declare TF variables
-variable "create_kubernetes_cluster" {
-  default     = true 
-}
-
 variable "kubernetes_version" {
   type        = string
   default     = "1.19.7"
