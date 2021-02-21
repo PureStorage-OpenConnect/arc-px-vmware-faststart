@@ -5,16 +5,18 @@ This module creates virtual machines based on a template via the terraform VMwar
 
 # Usage
 
-- Configure the variables in the `vmware_vm_pool\modules\virtual_machine\variables.tf` file per the instructions below
-- Execute the following commands from within the `vmware_vm_pool` directory: 
+## Apply
+
+Execute the following command from the `Arc-PX-VMware-Faststart/vmware_vm_pool` directory
 ```
-terraform init
 terraform apply -target=module.virtual_machine --auto-approve 
 ```
-To reverse this action, execute:
+
+## Destroy
+
+Execute the following command from the `Arc-PX-VMware-Faststart/vmware_vm_pool` directory
 ```
-terraform destroy -target=module.virtual_machine 
-```
+terraform destroy -target=module.virtual_machine --auto-approve 
 
 # Dependencies
 
