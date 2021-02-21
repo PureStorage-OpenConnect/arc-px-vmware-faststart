@@ -264,124 +264,19 @@ The following steps are to be performed on the same machine used to copy the pub
 
 `git clone https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart.git`
 
-5. Edit the variables.tf file present in the root directory where the repo was cloned to:
-- Provide the name of the user used to login into VMware vSphere
-- Provide the IP address for the VMware vSphere vCenter endpoint
+5. In the interests of allowing usets of this repo to pick which configurations they wish to deploy, there are three subdirectories containing different `terraform` configurations:
 
-6. Edit the modules/kubernetes_cluster_vm_pool/variables.tf file, some salient points:
-- Only worker nodes require px_disk_size to be set to a value greater than zero (disk Portworx volumes are created on), set this to 0 for master nodes
-- The ipv4 subnet mask is in CIDR format
-- In the example file provided, memory and logical CPU are specified for the minimum worker node requirement for Portworx and SQL Server 2019 Big Data Cluster nodes.
-- pay special attention to the format of the `vsphere_resource_pool` variable, it is: 
-
-   `/<data_center>/host/<cluster>/Resources/<resource_pool>`
+- vmware_vm_pool
+-- use the virtual_machine module to create the virtual machines that underpin your kubernetes cluster - using the template created as per the instuctions provided earlier
+   in this README 
   
-7. Edit the modules/kubernetes_cluster/variables.tf:
-
-- this contains a single variable for the name of the subdirectory under which the kubespray (ansible) inventory directory will be created for your Kubernetes cluster. 
-  If for example this is set to `k8s_dev` and the user that `terraform apply` is executed under as is azuser, the inventory file will be contained in the directory:
-
-   `/home/azuser/kubespray/inventory/k8s_dev`
-
-- Replace the Portworx spec URL placeholder (https://install.portworx.com/myportworxspec) wit the URL of the spec created in the previous section:
-
-`variable "px_spec" {
-  description = "PX spec URL"
-  type        = string
-  default     = "https://install.portworx.com/myportworxspec"
-}`
-
-- save the changes made
-
-8. Set the VMware vSphere admin password environment variable:
-
-`export TF_VAR_VSPHERE_PASSWORD=<password_goes_here>`
-
-9. Set the azdata user password environment variable:
-
-`export TF_VAR_AZDATA_PASSWORD=<password_goes_here>`
-
-10.  Execute `terraform init` in order to download the terraform providers
-
-11. Execute `terraform plan` in order to generate an execution plan, this also serves to check that variables are correct, for example if a VMware datastore has been
-    specified that is incorrect, the VMware vSphere provider will report this.
+- kubernetes
+-- use the kubernetes_cluster module for creating a kubernetes cluster
+-- use the portworx module for deploying portworx to a kubernetes cluster
   
-12. Add the ip address, hostname pairs of the virtual machines in the `virtual_machines.tf` file to the `/etc/hosts` file on the client machine that terraform is to be run from. 
-  
-13. On the deployment server, login to Azure via `az login` - this will result in a token being created under the .azure directory in your home directory, if for any reason the
-    token needs to be refreshed, issue:
-    ```
-    az account clear
-    az login
-    ```
-
-14. The terraform config is divided into five modules:
-
-- [kubernetes_cluster_vm_pool](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/kubernetes_cluster_vm_pool/README.md)
-  
-  Creates the virtual machines which underpin the Kubernetes cluster via VMware vSphere, deployable via:
-  ```
-  terraform apply -target=module.kubernetes_cluster_vm_pool --auto-approve
-  ```
-- [kubernetes_cluster](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/kubernetes_cluster/README.md)
-  
-  Create a Kubernetes cluster via kubespray (an ansible playbook that leverages kubeadm), deployable via:
-  ```
-  terraform apply -target=module.kubernetes_cluster --auto-approve
-  ```
-- [portworx](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/portworx/README.md)
-  
-  Deploys portworx to the Kubernetes cluster and creates a portworx-sc storage class, deployable via:
-  ```
-  terraform apply -target=module.kubernetes_cluster --auto-approve
-  ```
-- [azure_arc_ds_controller](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/azure_arc_ds_controller/README.md)
-  
-  Deploys an Azure Arc enabled Data Services controller to the cluster, deployable via:
-  ```
-  terraform apply -target=module.azure_arc_ds_controller --auto-approve
-  ```
-- [big data cluster](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/modules/big_data_cluster/README.md)
-  
-  Deploys a SQL Server 2019 Big Data Cluster to the cluster, deployable via:
-  ```
-  terraform apply -target=module.big_data_cluter --auto-approve
-  ```  
-The latter two modules will also deploy the azdata CLI if it is not already installed.
-
-All modules are defined in the main.tf file root module thus:
-```
-provider "vsphere" {
-  user           = var.vsphere_user
-  password       = var.VSPHERE_PASSWORD
-  vsphere_server = var.vsphere_server
-
-  # If you have a self-signed cert
-  allow_unverified_ssl = true
-}
-
-module "kubernetes_cluster_vm_pool" {
-  source = "./modules/kubernetes_cluster_vm_pool"
-}
-
-module "kubernetes_cluster" {
-  source = "./modules/kubernetes_cluster"
-}
-
-module "portworx" {
-  source = "./modules/portworx"
-}
-
-module "big_data_cluster" {
-  source = "./modules/big_data_cluster"
-  AZDATA_PASSWORD = var.AZDATA_PASSWORD
-}
-
-module "azure_arc_ds_controller" {
-  source = "./modules/azure_arc_ds_controller"
-  AZDATA_PASSWORD = var.AZDATA_PASSWORD
-}
-```
+- azure_data_services
+-- use the big_data_cluster module for deploying a big data cluster to the kubernetes cluster
+-- use the azure_arc_ds_controller module for deploying an Azure Arc enabled Data Services Controller to the kubernetes cluster
 
 # Known Issues / Limitations
 
