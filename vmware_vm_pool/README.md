@@ -1,15 +1,15 @@
 # Usage
 
+- Configure the variables in the `vmware_vm_pool\modules\virtual_machine\variables.tf` file per the instructions below
+- Execute the following commands from within the `vmware_vm_pool` directory: 
 ```
-terraform apply -target=module.kubernetes_cluster_vm_pool --auto-approve 
+terraform init
+terraform apply -target=module.virtual_machine --auto-approve 
 ```
-
-If the aim is to execute this module without the requirement to execute any of the other related modules, execute:
-
-- `terraform init` 
-- `terraform apply`
-
-in the `arc-px-vmware-faststart/modules/kubernetes_cluster_vm_pool` directory
+To reverse this action, execute:
+```
+terraform destroy -target=module.virtual_machine --auto-approve 
+```
 
 # Overview
 
