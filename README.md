@@ -54,44 +54,6 @@ virtualized via VMware. The "Full stack" solution involves the deployment of fou
 
 # Instructions
 
-## Portworx Spec Creation
-
-1. Log into [Portworx Central](https://central.portworx.com/specGen/wizard)
-
-2. Select te Portworx Essentials radio button
-
-<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/portworx/px1.PNG?raw=true">
-
-3. Enter the Kubernetes version in the Kubernetes version box, tis configuration uses version 1.19.7 by defualt
-
-<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/portworx/px2.PNG?raw=true">
-
-4. Click the "On Premises" radio button and place ticks in the boxes for:
-- auto create journal device
-- skip KVDB device
-
-   Finally, hit next 
-
-<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/portworx/px3.PNG?raw=true">
-
-5. Accept the networking defaults by clicking on next
-
-<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/portworx/px4.PNG?raw=true">
-
-6. On the Customize tab check "Enable stork" and "Enable CSI" and then hit next
-
-<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/portworx/px5.PNG?raw=true">
-
-7. Accept the agreement for using Portworx
-
-<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/portworx/px6.PNG?raw=true">
-
-8. Enter a spec name and label 
-
-<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/portworx/px7.PNG?raw=true">
-
-## Kubernetes and Azure Data Services Creation
-
 The following steps are to be performed on the same machine used to copy the public ssh key onto the template virtual machine:
 
 1. Make the Hashicorp package repository trusted:
