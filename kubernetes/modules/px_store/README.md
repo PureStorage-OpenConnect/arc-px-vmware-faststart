@@ -9,12 +9,14 @@ platforms based on kubernetes.
 
 Execute the following command from the `Arc-PX-VMware-Faststart/kubernetes` directory
 ```
-terraform apply -target=module.portworx --auto-approve 
+terraform apply -target=module.px_store --auto-approve 
 ```
 
 ## Destroy
 
-Currently the only reversal action for this module is to recreate the kubernetes cluster.
+```
+terraform destroy -target=module.px_store --auto-approve 
+```
 
 # Dependencies
 
