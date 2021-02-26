@@ -13,9 +13,8 @@ terraform apply -target=module.kubernetes_cluster --auto-approve
 
 ## Destroy
 
-There is currently no destroy provisioner built into the module by which this action can be reversed, the following command should therefore be used:
 ```
-ansible-playbook -i <path to inventory.ini file> --become --become-user=root reset.yml
+terraform destroy -target=module.kubernetes_cluster --auto-approve 
 ```
 
 # Dependencies
