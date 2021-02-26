@@ -1,6 +1,7 @@
 # Overview
 
-This module deploys Portworx to the target kubernetes cluster and creates a storage class
+This module deploys Portworx PX Store to the target kubernetes cluster and creates a storage class. PX Store is a fully software defined storage solution for kubernetes and
+platforms based on kubernetes.
 
 # Usage
 
