@@ -10,9 +10,10 @@ virtualized via VMware. The "Full stack" solution involves the deployment of fou
 - [kubernetes_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/kubernetes_cluster/README.md) module for creating am 
   kubernetes cluster.
 
-- [portworx](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/portworx/README.md) module for deploying portworx to a kubernetes
-  cluster. Portworx is a 100% software defined Kubernetes storage solution that can deployed to Red Hat OpenShift, Kubernetes on-premises, Google Anthos, AKS, EKS or GKE. 
-  **Note that [Portworx Essentials](https://docs.portworx.com/concepts/portworx-essentials/) is free to use.**
+- [px_store](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/px_store/README.md) module for deploying the Portworx 
+  storage platform to a kubernetes cluster. Portworx PX Store is a 100% software defined Kubernetes storage solution that can deployed to Red Hat OpenShift, Kubernetes on-
+  premises, Google Anthos, AKS, EKS or GKE. 
+  **Note that [Portworx Essentials](https://docs.portworx.com/concepts/portworx-essentials/) - which PX Store comes with, is free to use.**
   
 - [big_data_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/big_data_cluster/README.md) module for deploying
   a big data cluster to a kubernetes cluster.
@@ -80,7 +81,7 @@ The following steps are to be performed on the same machine used to copy the pub
   
 - kubernetes
   - use the [kubernetes_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/kubernetes_cluster/README.md) module for creating a kubernetes cluster
-  - use the [portworx](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/portworx/README.md) module for deploying portworx to a kubernetes cluster
+  - use the [px_store](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/px_store/README.md) module for deploying portworx to a kubernetes cluster
   
 - azure_data_services
   - use the [big_data_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/big_data_cluster/README.md) module for deploying a big data cluster to the kubernetes cluster

@@ -1,6 +1,7 @@
 # Overview
 
-This module deploys Portworx to the target kubernetes cluster and creates a storage class
+This module deploys Portworx PX Store to the target kubernetes cluster and creates a storage class. PX Store is a fully software defined storage solution for kubernetes and
+platforms based on kubernetes.
 
 # Usage
 
@@ -8,12 +9,14 @@ This module deploys Portworx to the target kubernetes cluster and creates a stor
 
 Execute the following command from the `Arc-PX-VMware-Faststart/kubernetes` directory
 ```
-terraform apply -target=module.portworx --auto-approve 
+terraform apply -target=module.px_store --auto-approve 
 ```
 
 ## Destroy
 
-Currently the only reversal action for this module is to recreate the kubernetes cluster.
+```
+terraform destroy -target=module.px_store --auto-approve 
+```
 
 # Dependencies
 
