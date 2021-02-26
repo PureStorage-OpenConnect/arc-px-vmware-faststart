@@ -24,7 +24,7 @@ locals {
 
 resource "null_resource" "kubespray" {
   provisioner "local-exec" {
-    command = <<-EOT
+    command = <<EOF
       if [ ! -d ~/kubespray ]; then
         git clone https://github.com/kubernetes-sigs/kubespray.git ~/kubespray
         sudo apt-get autoremove -y
@@ -36,7 +36,7 @@ resource "null_resource" "kubespray" {
         mv ~/kubespray/inventory/$KI ~/kubespray/inventory/$KI.$(date "+%Y%m%d-%H%M%S")
       fi
       cp -r ~/kubespray/inventory/sample ~/kubespray/inventory/$KI
-    EOT
+    EOF
 
     environment = {
       KI = var.kubespray_inventory
@@ -72,11 +72,22 @@ resource "local_file" "kubernetes_config" {
 
 resource "null_resource" "kubernetes_cluster" {
   provisioner "local-exec" {
-    command = "cd ~/kubespray && ansible-playbook -i $KIP --become --become-user=root cluster.yml"
+    command = <<EOF
+      cp -f $KIP ${path.module}/inventory.$KID
+      cd ~/kubespray && ansible-playbook -i $KIP --become --become-user=root cluster.yml
+    EOF
 
     environment = {
       KIP = local.kubespray_inv_file
+      KID = var.kubespray_inventory
     }
+  }
+
+  provisioner "local-exec" {
+    when        = destroy
+    command     = <<EOF
+      ansible-playbook -i $(ls -l ${path.module}/inventory.* | awk '{ print $9 }') --become --become-user=root ~/kubespray/reset.yml -e reset_confirmation=yes
+    EOF    
   }
 
   depends_on = [
@@ -86,7 +97,7 @@ resource "null_resource" "kubernetes_cluster" {
 
 resource "null_resource" "kubernetes_context" {
   provisioner "local-exec" {
-    command = <<-EOT
+    command = <<EOF
       mkdir -p -m=775 ~/.kube
 
       if [ -f ~/.kube/config ]; then
@@ -99,7 +110,7 @@ resource "null_resource" "kubernetes_context" {
 
       sudo chmod 755 $CA 
       cp $CA ~/.kube/config
-    EOT
+    EOF
 
     environment = {
       CA = local.context_artifact
