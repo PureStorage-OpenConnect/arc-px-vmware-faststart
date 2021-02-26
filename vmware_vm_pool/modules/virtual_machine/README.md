@@ -21,9 +21,172 @@ terraform destroy -target=module.virtual_machine --auto-approve
 # Dependencies
 
 - a VMware vSphere cluster is available 
-- a template virtual machine created per the instructions in the [README.md](https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/README.md) 
-  file in the root of this repository
+- a template virtual machine created as per the instructions in the next section
+  
+# Virtual Machine Template Creation
 
+1. In VMware vSphere vCenter create a new virtual machine:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/vmware/vmware1.PNG?raw=true">
+
+2. Give the virtual machine a name
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/vmware/vmware2.PNG?raw=true">
+
+3. Assign a compute resource to the virtual machine
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/vmware/vmware3.PNG?raw=true">
+
+4. Select a datastore for the virtual machine
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/vmware/vmware4.PNG?raw=true">
+
+5. Choose the compatibility level for the virtual machine, the latest version of vSphere available will suffice
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/vmware/vmware5.PNG?raw=true">
+
+6. Select the guest OS family of Linux and the guest OS type of Ubuntu 64
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/vmware/vmware6.PNG?raw=true">
+
+7. Set the logical CPU, memory, disk and CD/DVD resources for the virtual machine - connect the datastore ISO for Ubuntu 18.04 server LTS to the CD/DVD drive, this can
+   be downloaded from this [link](https://ubuntu.com/download/server) 
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/vmware/vmware7.PNG?raw=true">
+
+8. Review the configuration of the virtual machine and hit Finish
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/vmware/vmware8.PNG?raw=true">
+
+9. Power on the virtual machine and go to the guest OS console.
+
+10. Whilst configuring the guest OS, use tab to navigate around the screen, space-bar to toggle through configuration options and enter to confirm choices.
+
+11. Choose the guest OS language
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu1.PNG?raw=true">
+
+12. Choose the option to update to the new installer
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu2.PNG?raw=true">
+
+13. Select the desired keyboard layout
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu3.PNG?raw=true">
+
+14. Accept the default NIC configuration
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu4.PNG?raw=true">
+
+15. Enter a proxy on this screen if one is required to access the internet
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu5.PNG?raw=true">
+
+16. Accept the default mirror site
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu6.PNG?raw=true">
+
+17. Choose the default option to use entire disk when creating the root filesystem
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu7.PNG?raw=true">
+
+18. Confirm that the default layout is to be used
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu8.PNG?raw=true">
+
+19. Confirm that you wish the installation process to destroy anything that might be on the OS disk - because this is a clean install, there is nothing to destroy
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu9.PNG?raw=true">
+
+20. Enter details for the username and machine name, azuser and ubuntu-1804-template respectively
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu10.PNG?raw=true">
+
+21. Use the spacebar to tick the option to install the OpenSSH server
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu11.PNG?raw=true">
+
+22. No optional packages and required, so go straight to Done
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu12.PNG?raw=true">
+
+23. Ubuntu will now install
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu13.PNG?raw=true">
+
+24. When the Reboot now option appears, select this
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu14.PNG?raw=true">
+
+25. Disconnect the CD/DVD drive in vSphere vCenter and hit enter
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu15.PNG?raw=true">
+
+26. Login as azuser using the password entered earlier in step 20
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/ubuntu/ubuntu16.PNG?raw=true">
+
+27. Whilst still in the virtual machine console add azuser to the sudo-ers group:
+- enter sudo visudo
+- at the end of the file which will appear in the nano editor add the following line
+`azuser ALL=(ALL:ALL) NOPASSED:ALL`
+- CTRL+X then Y to save this change
+
+28. Enable the azuser user on the main setup machine to ssh onto the virtual machines that will created from the template without having to provide a password:
+- `sudo vi /etc/ssh/sshd_config` (alternatively you can use the nano editor)
+- change the line `UsePAM yes` to `UsePAM no`
+- change the line `#PasswordAuthentication yes` to `PasswordAuthentication no`
+- change the line `ChallengeResponseAuthentication yes` to `ChallengeResponseAuthentication no`
+- save the changes and exit the editor - `CTRL+[` , `SHIFT+:`, `wq!` (for vi)
+
+29. Configure cloud init:
+- `sudo vi /etc/cloud/cloud.cfg`
+- change the line `preserve_hostname: false` to `preserve_hostname: true`
+- save the changes and exit the editor - `CTRL+[` , `SHIFT+:`, `wq!` (for vi)
+
+30. Configure the virtual machine's NIC with a static ip address
+- `sudo vi /etc/netplan/00-installer-config.yaml`
+- change the contents of the file to:
+```
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    ens160:
+      addresses:
+      - 192.168.123.45/22
+      gateway4: 192.168.123.1
+      nameservers:
+        addresses:
+        - 192.168.123.2
+        search:
+        - lab.myorg.com
+  version: 2
+```
+- **NOTE** change the IP addresses to those that are appropriate to your network, the last octet for the gateway ip address is usually one, the main IP address is always in CIDR  format
+- save the changes and exit the edit - CTRL+[ , SHIFT+:, wq! in te vi editor
+- Check that your changes are correct by issuing `sudo netplan apply`
+
+31. On the main machine that will be used to drive the creation of the Kubenetes cluster whilst logged in as azuser create a ssh public/private key pair:
+- `ssh-keygen`
+- you will be prompted for a password, for the purposes of simplicity use the same one that was used when azuser was specified during the guest OS installation for the template virtual machine
+- copy the public key onto the template virtual machine: `ssh-copy-id azuser@192.168.123.45`, you will be prompted for the azuser password and confirmation as to whether you want the public
+  key to be added to keystore for the template virtual machine, select te default option of yes
+
+32. Log onto the template virtual machine and apply updates and upgrade the kernel:
+- `sudo apt-get update`
+- `sudo apt-get upgrade`
+- `sudo apt-get install --install-recommends linux-generic-hwe-18.04` 
+
+33. Remove the NIC config for the virtual machine template, log into the template virtual machine:
+
+`sudo mv /etc/newtplan/00-installer-config.yaml ~/.`
+
+34. Shutdown the template virtual machine:
+
+`sudo shutdown now`
+
+35. In VMware vCenter right click on the ubuntu-18.04-template virtual machine, select template and then the option to convert this to a template.
+  
 # Variables
 
 The minimum set of variables that need to be configured consists of those with no default values.
