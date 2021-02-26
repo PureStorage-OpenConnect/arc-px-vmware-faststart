@@ -20,7 +20,7 @@ terraform destroy -target=module.px_backup --auto-approve
 
 # Dependencies
 
-- Azure account
+- Azure subscription
 - An on-premises kubernetes cluster to deploy PX Backup to
 
 # Portworx Spec Creation
