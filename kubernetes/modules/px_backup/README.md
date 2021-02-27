@@ -34,7 +34,7 @@ The minimum set of variables that need to be configured consists of those with n
 | helm_chart_version            | string    | PX Backup helm chart version to be deployed                         |        Y        | 1.2.2                           |
 | storage_class                 | string    | Store class to use for PX Backup metadata state                     |        Y        | portworx-sc                     |
 | namespace                     | string    | Namespace to create PX Backup objects in                            |        Y        | px-backup                       |
-| azure_subscription_id         | string    | Azure subscription to use for when creating Azure objects           |        Y        | **No default value**           |
+| azure_subscription_id         | string    | Azure subscription to use for when creating Azure objects           |        Y        | **No default value**            |
 | azure_resource_group          | string    | Resource group to associate Azure objects with                      |        Y        | px-backup-rg                    |
 | azure_location                | string    | Azure location to create Azure objects in                           |        Y        | uksouth                         | 
 | azure_storage_account_name    | string    | Name to give Azure storage account                                  |        Y        | portworxpxbackup                |
@@ -131,13 +131,26 @@ localhost:8080
     
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb8.PNG?raw=true">
     
--  Cloud Account Name:
--  Azure Account Name:
--  Azure Account Key :
--  Client Id         :
--  Client Secret     :
--  Tenant Id         :
--  Subscription Id   : 
+-  Cloud Account Name
+   This is simply a user proivided label
+
+-  Azure Account Name
+   The Azure storage account name assigned to the variable `azure_storage_account_name` in the variables.tf file
+
+-  Azure Account Key
+   A key value associated with the Azure storage account
+
+-  Client Id
+   Client Id returned from running `terraform apply` for the module
+
+-  Client Secret
+   Client Secret (password) returned from running `terraform apply` for the module
+
+-  Tenant Id
+   Azure terrant Id returned from running `terraform apply` for the module
+
+-  Subscription Id
+   The subscription id of the Azure account that the storage account belongs to 
 
 # Known Issues / Limitations
 
