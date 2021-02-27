@@ -34,7 +34,7 @@ The minimum set of variables that need to be configured consists of those with n
 | helm_chart_version            | string    | PX Backup helm chart version to be deployed                         |        Y        | 1.2.2                           |
 | storage_class                 | string    | Store class to use for PX Backup metadata state                     |        Y        | portworx-sc                     |
 | namespace                     | string    | Namespace to create PX Backup objects in                            |        Y        | px-backup                       |
-| azure_subscription_id         | string    | Azure subscription to use for when creating Azure objects           |        Y        | **No defaulkt value**           |
+| azure_subscription_id         | string    | Azure subscription to use for when creating Azure objects           |        Y        | **No default value**           |
 | azure_resource_group          | string    | Resource group to associate Azure objects with                      |        Y        | px-backup-rg                    |
 | azure_location                | string    | Azure location to create Azure objects in                           |        Y        | uksouth                         | 
 | azure_storage_account_name    | string    | Name to give Azure storage account                                  |        Y        | portworxpxbackup                |
@@ -98,15 +98,25 @@ localhost:8080
 ```
 4. Enter `admin` for the username and `admin` for the password on the initial login screen, then hit enter
 
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb1.PNG?raw=true">
+
 5. Enter a new password and confirm this as instructed:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb2.PNG?raw=true">
 
 6. Update your user profile information to activate your account:
 
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb3.PNG?raw=true">
+
 7. Click on the **Add Cluster** button in the top right corner
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb4.PNG?raw=true">
 
 8. Give the cluster a name (a label), browse to the `.kube/config` file containing the connection context for the cluster, otherwise run the `kubectl` command as advised and 
    paste the output into the Kubeconfig box, finally - hit **Submit**
-   
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb5.PNG?raw=true">
+
 9. Your kubernetes cluster should now be registered with PX Backup - called ca-bdc in this example:
 
 10. Click on **Settings** in the top right corner and then cloud settings in order to make the cloud settings screen appear:
