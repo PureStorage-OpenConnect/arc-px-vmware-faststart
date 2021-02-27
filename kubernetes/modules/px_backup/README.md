@@ -53,7 +53,8 @@ This walkthough covers the full installation of PX Backup via this module and it
 ```
 terraform apply -target=module.px_backup --auto-approve 
 ```
-   When this has completed it will display information required later for the configuration of Azure as a backup location, **make a note of this information**:
+   When this has completed it will display information required later for the configuration of Azure as a backup location, **make a note of this information** as it is
+   required in order to configure Azure as a backup destination later on
 ```
 Outputs:
 
