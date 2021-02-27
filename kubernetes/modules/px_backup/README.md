@@ -119,10 +119,17 @@ localhost:8080
 
 9. Your kubernetes cluster should now be registered with PX Backup - called ca-bdc in this example:
 
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb6.PNG?raw=true">
+
 10. Click on **Settings** in the top right corner and then cloud settings in order to make the cloud settings screen appear:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb7.PNG?raw=true">
 
 11. Click on **Add** in the top right corner and select Azure from the Cloud provider list of values. You will now be presented with a screen prompting for Azure account
     information:
+    
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb8.PNG?raw=true">
+    
 -  Cloud Account Name:
 -  Azure Account Name:
 -  Azure Account Key :
