@@ -53,7 +53,15 @@ This walkthough covers the full installation of PX Backup via this module and it
 ```
 terraform apply -target=module.px_backup --auto-approve 
 ```
-   When this has completed 
+   When this has completed it will display information required later for the configuration of Azure as a backup location, **make a note of this information**:
+```
+Outputs:
+
+client_id = "a12bcde3-f456-789g-12h3-4ij56lm78no9"
+client_secret = "XVMk1iqnrFWly6cj"
+subscription_id = "/subscriptions/fg9z3eca-e3bb-7581-86e9-xz9f675f927w"
+tenant_id = "1a2b3456-c78d-9123-efgh-456789i123jk"
+```
 
 2. Once the module has been successfully applied, assuming the namespace used is `px-backup`, issue:
 ```
@@ -75,7 +83,7 @@ pxcentral-lh-middleware-58f95d767d-nn8qb   1/1     Running     0          6m18s
 pxcentral-mysql-0                          1/1     Running     0          7m43s
 pxcentral-post-install-hook-2fkws          0/1     Completed   0          7m43s
 ```
-2. On a laptop or machine capable of supporting a web browser, issue the following command:
+2. Issue the following command from a machine capable of supporting a web browser:
 ```
 kubectl port-forward service/px-backup-ui 8080:80 --namespace px-backup
 ```
@@ -84,26 +92,26 @@ kubectl port-forward service/px-backup-ui 8080:80 --namespace px-backup
 ```
   scp azuser@<hostname>:/home/azuser/.kube/config C:\Users\cadkin\.kube\config
 ```
-3. In the browser URL address bar enter:
+3. Enter the following in the browser URL address bar enter:
 ```
 localhost:8080
 ```
-4. On the initial login screen, enter `admin` for the username and `admin` for the password, and then hit enter
+4. Enter `admin` for the username and `admin` for the password on the initial login screen, then hit enter
 
 5. Enter a new password and confirm this as instructed:
 
-6. Update your user profile information as instructed to activate your account:
+6. Update your user profile information to activate your account:
 
 7. Click on the **Add Cluster** button in the top right corner
 
 8. Give the cluster a name (a label), browse to the `.kube/config` file containing the connection context for the cluster, otherwise run the `kubectl` command as advised and 
    paste the output into the Kubeconfig box, finally - hit **Submit**
    
-9. Your kubernetes cluster should now be registered with PX Backup - in this example it is called ca-bdc:
+9. Your kubernetes cluster should now be registered with PX Backup - called ca-bdc in this example:
 
-10. Click on setting in the top right corner and then cloud settings in order to make the cloud settings screen appear
+10. Click on **Settings** in the top right corner and then cloud settings in order to make the cloud settings screen appear:
 
-11. Click on Add in the top right corner and then from the Cloud Provider list of values select Azure, you will be presented with a screen prompting for Azure account
+11. Click on **Add** in the top right corner and select Azure from the Cloud provider list of values. You will now be presented with a screen prompting for Azure account
     information:
 -  Cloud Account Name:
 -  Azure Account Name:
