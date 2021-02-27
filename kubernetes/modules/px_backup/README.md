@@ -131,26 +131,19 @@ localhost:8080
     
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb8.PNG?raw=true">
     
--  Cloud Account Name
-   This is simply a user proivided label
+-  **Cloud Account Name** - a user proivided label
 
--  Azure Account Name
-   The Azure storage account name assigned to the variable `azure_storage_account_name` in the variables.tf file
+-  **Azure Account Name** - the Azure storage account name assigned to the variable `azure_storage_account_name` in the variables.tf file
 
--  Azure Account Key
-   A key value associated with the Azure storage account
+-  **Azure Account Key** - a key value associated with the Azure storage account
 
--  Client Id
-   Client Id returned from running `terraform apply` for the module
+-  **Client Id** - Client Id returned from running `terraform apply` for the module
 
--  Client Secret
-   Client Secret (password) returned from running `terraform apply` for the module
+-  **Client Secret** - Client Secret (password) returned from running `terraform apply` for the module
 
--  Tenant Id
-   Azure terrant Id returned from running `terraform apply` for the module
+-  **Tenant Id** - Azure terrant Id returned from running `terraform apply` for the module
 
--  Subscription Id
-   The subscription id of the Azure account that the storage account belongs to 
+-  **Subscription Id** - The subscription id of the Azure account that the storage account belongs to 
 
 # Known Issues / Limitations
 
