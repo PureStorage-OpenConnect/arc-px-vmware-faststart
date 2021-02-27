@@ -59,8 +59,8 @@ Outputs:
 
 client_id = "a12bcde3-f456-789g-12h3-4ij56lm78no9"
 client_secret = "XVMk1iqnrFWly6cj"
-subscription_id = "/subscriptions/fg9z3eca-e3bb-7581-86e9-xz9f675f927w"
 tenant_id = "1a2b3456-c78d-9123-efgh-456789i123jk"
+subscription_id = "/subscriptions/fg9z3eca-e3bb-7581-86e9-xz9f675f927w"
 ```
 
 2. Once the module has been successfully applied, assuming the namespace used is `px-backup`, issue:
