@@ -172,7 +172,7 @@ azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/
 ```
 
 17. Log into the master pool SQL Server instance via Azure Data Studio with the following to see the file that has just been loaded into the storage pool 
-- <compute-node-ip-address>,31433 for the instance
+- `compute-node-ip-address`,31433 for the instance
 - SQL Server authentication with the following credentials
   - username specified in var.azdata_username
   - password specified in var.AZDATA_PASSWORD
