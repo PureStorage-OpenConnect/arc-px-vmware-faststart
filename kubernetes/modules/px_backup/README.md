@@ -145,6 +145,46 @@ localhost:8080
 
 -  **Subscription Id** - The subscription id of the Azure account that the storage account belongs to 
 
+12. We now need to add a backup location, the name that we want to give our Azure blob container in other words. In this particular instance the **cloud account** is
+    named **azure-bdc**, to add a backup location click on **Add** to the right of Backup Location:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb9.PNG?raw=true">
+
+13. When are the backup location details have been entered (no requirement to provide an encryption key), hit **Add**:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb10.PNG?raw=true">
+
+14. We should now have a Cloud Account and Backup Location:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb11.PNG?raw=true">
+
+15. Click on the Portworx icon in the top left corner to go back to the main screen which lists the cluster that have been configured to use PX Backup:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb12.PNG?raw=true">
+
+16. Backups can be performed at various level of granularity, ranging from the entire contents of a kubernetes namespace right down to specific object types. In this example, we
+    will backup a Big Data Cluster storage pool, but before we do this we will put some data in it
+
+```
+echo "This is a backup test" > backup_test.txt
+az login
+azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/backup_test.txt"
+```
+
+17. Log into the master pool SQL Server instance via Azure Data Studio with the following to see the file that has just been loaded into the storage pool 
+- <compute-node-ip-address>,31433 for the instance
+- SQL Server authentication with the following credentials
+  - username specified in var.azdata_username
+  - password specified in var.AZDATA_PASSWORD
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb13.PNG?raw=true">
+
+
+    that has just been loaded:
+   
+
+
+
 # Known Issues / Limitations
 
 None noted.
