@@ -179,12 +179,6 @@ azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb13.PNG?raw=true">
 
-
-    that has just been loaded:
-   
-
-
-
 # Known Issues / Limitations
 
 None noted.
