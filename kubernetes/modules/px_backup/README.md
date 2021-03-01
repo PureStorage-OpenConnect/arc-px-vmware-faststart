@@ -163,21 +163,32 @@ localhost:8080
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb12.PNG?raw=true">
 
 16. Backups can be performed at various level of granularity, ranging from the entire contents of a kubernetes namespace right down to specific object types. In this example, we
-    will backup a Big Data Cluster storage pool, but before we do this we will put some data in it
+    will backup a Big Data Cluster storage pool, but before we do this we will put some data in it by first creating a very simple text file:
 
 ```
 echo "This is a backup test" > backup_test.txt
-az login
+```
+
+17. Log into the big data cluster, the following will prompt for the big data cluster namespace, the username specified in `var.azdata_username` and finally the value that 
+    `var.AZDATA_PASSWORD` was set to
+```
+azdata login
+```
+
+18. Copy the file into the storage pool, enter the value used for `var.AZDATA_PASSWORD` as the Know password when prompted for it:
+```
 azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/backup_test.txt"
 ```
 
-17. Log into the master pool SQL Server instance via Azure Data Studio with the following to see the file that has just been loaded into the storage pool 
+19. Log into the master pool SQL Server instance via Azure Data Studio with the following to see the file that has just been loaded into the storage pool 
 - `compute-node-ip-address`,31433 for the instance
 - SQL Server authentication with the following credentials
   - username specified in var.azdata_username
   - password specified in var.AZDATA_PASSWORD
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb13.PNG?raw=true">
+
+
 
 # Known Issues / Limitations
 
