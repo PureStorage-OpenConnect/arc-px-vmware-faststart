@@ -248,8 +248,8 @@ kubectl scale statefulsets storage-0 --replicas=0 -n ca-bdc
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb20.PNG?raw=true">
 
-31. Hit the **restore** button, give the restore a name, select the namespace containing the big data cluster, ca-bdc in this example, check the **Replace existing objects** box
-    and finally hit the restore button:
+31. On the screen above - hit **Restore backup**, give the restore a name, select the namespace containing the big data cluster, ca-bdc in this example, check the
+    **Replace existing objects** box and finally hit the **restore** button:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb21.PNG?raw=true">
 
