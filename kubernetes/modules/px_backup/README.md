@@ -221,7 +221,7 @@ azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/
 
 26. Return back to Azure Data Studio right click on the backup_test.txt file and select delete and confirm that you wish to do this.
 
-27. Scale both the name node and storage pool satefulsets down to zero, obtain their names using this command
+27. Scale both the name node and storage pool `satefulsets` down to zero, obtain their names using this command:
 ```
 kubectl get statefulset -n ca-bdc | egrep '(nmnode|storage)'
 ```
