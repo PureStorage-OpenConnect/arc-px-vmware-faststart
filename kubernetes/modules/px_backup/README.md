@@ -208,10 +208,10 @@ azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/
 - logs-storage-0-0
 - logs-storage-0-1
 
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb17.PNG?raw=true">
+
 24. Click on the **backup** button in the top right hand corner, give the backup a name, select azure-backup-loc as the location, check the **Now** radio button and then
     **Create**:
-
-<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb17.PNG?raw=true">
 
 25. The UI should look as follows once the backup is complete
 
