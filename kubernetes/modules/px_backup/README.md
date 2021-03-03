@@ -56,6 +56,11 @@ This walkthough covers the full installation of PX Backup via this module and it
 - PX Backup will work with any third party kubernetes storage plugin that supports snapshots in adherance to the **C**ontainer **S**torage **I**nterface standard
 - The oldest version of kubernetes that supports CSI snapshots is 1.12, for versions prior to 1.17 - snapshots need to be enabled by enabling a feature gate as per the
   [Kubernetes CSI documentation](https://kubernetes-csi.github.io/docs/snapshot-restore-feature.html).
+- PX Backup supports the following backup destinations:
+  - S3 in AWS
+  - S3 for on-premises storage
+  - Azure blob storage
+  - S3 storage in GCP
 
 1. Modify the values in the `Arc-PX-VMware-Faststart/kubernetes/modules/px_backup/variables.tf` file as appropriate and then run:
 ```
