@@ -213,9 +213,11 @@ azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/
 24. Click on the **backup** button in the top right hand corner, give the backup a name, select azure-backup-loc as the location, check the **Now** radio button and then
     **Create**:
 
-25. The UI should look as follows once the backup is complete
-
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb18.PNG?raw=true">
+
+25. The UI should look as follows once the backup is complete:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb19.PNG?raw=true">
 
 26. Return back to Azure Data Studio right click on the backup_test.txt file and select delete and confirm that you wish to do this.
 
