@@ -88,7 +88,8 @@ pxcentral-post-install-hook-2fkws          0/1     Completed   0          7m43s
 ```
 kubectl port-forward service/px-backup-ui 8080:80 --namespace px-backup
 ```
-  **Note** if you have not already set up a connection context on this machine, copy the config file from the .kube directory of the machine that you run
+  **Note**
+  If you have not already setup a connection context on this machine, copy the config file from the .kube directory of the machine that you run
   terraform commands from, e.g.
 ```
   scp azuser@<hostname>:/home/azuser/.kube/config C:\Users\cadkin\.kube\config
@@ -105,7 +106,7 @@ localhost:8080
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb2.PNG?raw=true">
 
-6. Update your user profile information to activate your account:
+6. Update the user profile information to activate your account:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb3.PNG?raw=true">
 
@@ -122,7 +123,7 @@ localhost:8080
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb6.PNG?raw=true">
 
-10. Click on **Settings** in the top right corner and then cloud settings in order to make the cloud settings screen appear:
+10. Click on **Settings** in the top right corner followed by **cloud settings** in order to make the cloud settings screen appear:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb7.PNG?raw=true">
 
@@ -145,7 +146,7 @@ localhost:8080
 
 -  **Subscription Id** - The subscription id of the Azure account that the storage account belongs to 
 
-12. We now need to add a backup location, the name that we want to give our Azure blob container in other words. In this particular instance the **cloud account** is
+12. Add a backup location, the name that we want to give our Azure blob container in other words. In this particular instance the **cloud account** is
     named **azure-bdc**, to add a backup location click on **Add** to the right of Backup Location:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb9.PNG?raw=true">
