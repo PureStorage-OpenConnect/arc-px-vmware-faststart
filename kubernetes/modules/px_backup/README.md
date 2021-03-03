@@ -188,7 +188,79 @@ azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb13.PNG?raw=true">
 
+20. Whilst still in Azure Data Studio, right click on the test_backup.txt file to verify that it contains the line of text that was placed in it in step 16.
 
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb14.PNG?raw=true">
+
+21. Return to the PX Backup UI, click on the name of your cluster, ca-bdc in this example:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb15.PNG?raw=true">
+
+22. Select the namespace containing your big data cluster from the left most list of values under the application tab:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb16.PNG?raw=true">
+ 
+23. From the middle list of values select `PersistentVolumeClaim` and then from the list of volume claims that appear, select the following:
+- data-nmnode-0-0
+- data-storage-0-0
+- data-storage-0-1
+- logs-nmnode-0-0
+- logs-storage-0-0
+- logs-storage-0-1
+
+24. Click on the **backup** button in the top right hand corner, give the backup a name, select azure-backup-loc as the location, check the **Now** radio button and then
+    **Create**:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb17.PNG?raw=true">
+
+25. The UI should look as follows once the backup is complete
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb18.PNG?raw=true">
+
+26. Return back to Azure Data Studio right click on the backup_test.txt file and select delete and confirm that you wish to do this.
+
+27. Scale both the name node and storage pool satefulsets down to zero, obtain their names using this command
+```
+kubectl get statefulset -n ca-bdc | egrep '(nmnode|storage)'
+```
+    The `namespace` used in this example is ca-bdc, change this to the namespace that contains you big data cluster as appropriate.
+    
+28. Two `statefulsets` are returned:
+```
+nmnode-0    1/1     6h19m
+storage-0   2/2     6h19m
+```
+   Scale these down to zero using the following commands:
+```
+kubectl scale statefulsets nmnode-0 --replicas=0 -n ca-bdc
+kubectl scale statefulsets storage-0 --replicas=0 -n ca-bdc
+```
+   As before, substitute ca-bdc for the name of the namespace containing your big data cluster.
+   
+29. Return to the PX Backup UI:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb19.PNG?raw=true">
+  
+30. Click on the backup to obtain more in-depth details for the backup:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb20.PNG?raw=true">
+
+31. Hit the restore button, give the restore a name, select the namespace containing the big data cluster, ca-bdc in this example, check the **Replace existing objects** box
+    and finally hit the restore button:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb21.PNG?raw=true">
+
+32. Once the restore has successfuly completed, you should be met with this screen:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb21.PNG?raw=true">
+
+33. Scale the `statefulsets` back to their original replica values:
+```
+kubectl scale statefulsets nmnode-0 --replicas=1 -n ca-bdc
+kubectl scale statefulsets storage-0 --replicas=2 -n ca-bdc
+```
+
+34. If you now return to Azure Data Studio, the backup_test.txt file should be back.
 
 # Known Issues / Limitations
 
