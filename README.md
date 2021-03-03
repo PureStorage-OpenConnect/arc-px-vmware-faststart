@@ -16,7 +16,9 @@ virtualized via VMware. The "Full stack" solution involves the deployment of fou
   **Note that [Portworx Essentials](https://docs.portworx.com/concepts/portworx-essentials/) - which PX Store comes with, is free to use.**
   
 - [px_backup](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/px_backup/README.md) module for backing up kubernetes clusters,
-  the documentation for this module includes a walked through example of how to backup and restore a big data cluster storage pool.
+  the documentation for this module includes a walked through example of how to backup and restore a big data cluster storage pool. PX Backup works with any CSI compliant storage
+  plugin that supports snapshots - however, to leverage incremental backups you must use PX Store. PX Backup supports objects level backups and backup destinations of S3 in
+  AWS/GCP and on-premises and also Azure blob storage. Further information is provided in the [Portworx PX Backup documentation](https://portworx.com/products/px-backup/).
   
 - [big_data_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/big_data_cluster/README.md) module for deploying
   a big data cluster to a kubernetes cluster.
@@ -85,6 +87,7 @@ The following steps are to be performed on the same machine used to copy the pub
 - kubernetes
   - use the [kubernetes_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/kubernetes_cluster/README.md) module for creating a kubernetes cluster
   - use the [px_store](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/px_store/README.md) module for deploying portworx to a kubernetes cluster
+  - use the [px_backup](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/px_backup/README.md) module for kubernetes data protection
   
 - azure_data_services
   - use the [big_data_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/big_data_cluster/README.md) module for deploying a big data cluster to the kubernetes cluster
