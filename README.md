@@ -15,6 +15,9 @@ virtualized via VMware. The "Full stack" solution involves the deployment of fou
   premises, Google Anthos, AKS, EKS or GKE. 
   **Note that [Portworx Essentials](https://docs.portworx.com/concepts/portworx-essentials/) - which PX Store comes with, is free to use.**
   
+- [px_backup](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/px_backup/README.md) module for backing up kubernetes clusters,
+  the documentation for this module includes a walked through example of how to backup and restore a big data cluster storage pool.
+  
 - [big_data_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/big_data_cluster/README.md) module for deploying
   a big data cluster to a kubernetes cluster.
   
