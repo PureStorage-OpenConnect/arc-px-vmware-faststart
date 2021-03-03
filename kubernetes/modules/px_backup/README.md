@@ -49,6 +49,19 @@ The minimum set of variables that need to be configured consists of those with n
 
 This walkthough covers the full installation of PX Backup via this module and its use to backup and resdtore a SQL Server 2019 Big Data Cluster storage pool.
 
+**Please note the following:**
+- The entire process outlined in the following steps can be scripted
+- When restoring persistent volume claims, which restores their underlying volumes when using PX Backup over existing objects, the parent statefulset or replicaset **has**
+  to be scaled down to zero replicas first, otherwise this will result in persistent volume claims in a state of terminating
+- PX Backup will work with any third party kubernetes storage plugin that supports snapshots in adherance to the **C**ontainer **S**torage **I**nterface standard
+- The oldest version of kubernetes that supports CSI snapshots is 1.12, for versions prior to 1.17 - snapshots need to be enabled by enabling a feature gate as per the
+  [Kubernetes CSI documentation](https://kubernetes-csi.github.io/docs/snapshot-restore-feature.html).
+- PX Backup supports the following backup destinations:
+  - S3 in AWS
+  - S3 for on-premises storage
+  - Azure blob storage
+  - S3 storage in GCP
+
 1. Modify the values in the `Arc-PX-VMware-Faststart/kubernetes/modules/px_backup/variables.tf` file as appropriate and then run:
 ```
 terraform apply -target=module.px_backup --auto-approve 
@@ -88,7 +101,8 @@ pxcentral-post-install-hook-2fkws          0/1     Completed   0          7m43s
 ```
 kubectl port-forward service/px-backup-ui 8080:80 --namespace px-backup
 ```
-  **Note** if you have not already set up a connection context on this machine, copy the config file from the .kube directory of the machine that you run
+  **Note**
+  If you have not already setup a connection context on this machine, copy the config file from the .kube directory of the machine that you run
   terraform commands from, e.g.
 ```
   scp azuser@<hostname>:/home/azuser/.kube/config C:\Users\cadkin\.kube\config
@@ -105,7 +119,7 @@ localhost:8080
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb2.PNG?raw=true">
 
-6. Update your user profile information to activate your account:
+6. Update the user profile information to activate your account:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb3.PNG?raw=true">
 
@@ -122,7 +136,7 @@ localhost:8080
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb6.PNG?raw=true">
 
-10. Click on **Settings** in the top right corner and then cloud settings in order to make the cloud settings screen appear:
+10. Click on **Settings** in the top right corner followed by **cloud settings** in order to make the cloud settings screen appear:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb7.PNG?raw=true">
 
@@ -145,8 +159,8 @@ localhost:8080
 
 -  **Subscription Id** - The subscription id of the Azure account that the storage account belongs to 
 
-12. We now need to add a backup location, the name that we want to give our Azure blob container in other words. In this particular instance the **cloud account** is
-    named **azure-bdc**, to add a backup location click on **Add** to the right of Backup Location:
+12. Add a backup location, the name that we want to give our Azure blob container in other words. In this particular instance the **cloud account** is
+    named **px-backup-azure**, to add a backup location click on **Add** to the right of Backup Location:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb9.PNG?raw=true">
 
@@ -156,39 +170,40 @@ localhost:8080
 
 14. We should now have a Cloud Account and Backup Location:
 
-<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb11.PNG?raw=true">
-
-15. Click on the Portworx icon in the top left corner to go back to the main screen which lists the cluster that have been configured to use PX Backup:
-
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb12.PNG?raw=true">
 
-16. Backups can be performed at various level of granularity, ranging from the entire contents of a kubernetes namespace right down to specific object types. In this example, we
-    will backup a Big Data Cluster storage pool, but before we do this we will put some data in it by first creating a very simple text file:
+15. Click on the Portworx symbol in the top left corner to go back to the main screen which lists the cluster that is configured to use PX Backup:
+
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb11.PNG?raw=true">
+
+16. Backups can be performed at various levels of granularity - ranging from the entire contents of a namespace down to specific object types. In this example, we
+    will backup a Big Data Cluster storage pool, before doing this let us put some data in it by creating a simple text file:
 
 ```
 echo "This is a backup test" > backup_test.txt
 ```
 
-17. Log into the big data cluster, the following will prompt for the big data cluster namespace, the username specified in `var.azdata_username` and finally the value that 
-    `var.AZDATA_PASSWORD` was set to
+17. Log into the big data cluster, the following command will prompt for the big data cluster namespace, the username specified in `var.azdata_username` and finally the 
+value that `var.AZDATA_PASSWORD` is set to:
 ```
 azdata login
 ```
 
-18. Copy the file into the storage pool, enter the value used for `var.AZDATA_PASSWORD` as the Know password when prompted for it:
+18. Copy the file into the storage pool, enter the value used for `var.AZDATA_PASSWORD` as the Knox password when prompted for it:
 ```
 azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/backup_test.txt"
 ```
 
-19. Log into the master pool SQL Server instance via Azure Data Studio with the following to see the file that has just been loaded into the storage pool 
+19. Log into the master pool SQL Server instance via Azure Data Studio in order to see the file that we have just loaded into the storage pool. The following connection
+    details are required: 
 - `compute-node-ip-address`,31433 for the instance
-- SQL Server authentication with the following credentials
+- SQL Server authentication with:
   - username specified in var.azdata_username
   - password specified in var.AZDATA_PASSWORD
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb13.PNG?raw=true">
 
-20. Whilst still in Azure Data Studio, right click on the test_backup.txt file to verify that it contains the line of text that was placed in it in step 16.
+20. Whilst still in Azure Data Studio, right click on the test_backup.txt file to verify that it contains the line of text that was placed in it back in step 16.
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb14.PNG?raw=true">
 
@@ -200,7 +215,7 @@ azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb16.PNG?raw=true">
  
-23. From the middle list of values select `PersistentVolumeClaim` and then from the list of volume claims that appear, select the following:
+23. From the middle list of values select `PersistentVolumeClaim` and select the following from the list of persistent volume claims:
 - data-nmnode-0-0
 - data-storage-0-0
 - data-storage-0-1
@@ -210,18 +225,18 @@ azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb17.PNG?raw=true">
 
-24. Click on the **backup** button in the top right hand corner, give the backup a name, select azure-backup-loc as the location, check the **Now** radio button and then
+24. Click on the **backup** button in the top right hand corner, give the backup a name, select **azure-backup-loc** as the location, check the **Now** radio button and then
     **Create**:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb18.PNG?raw=true">
 
-25. The UI should look as follows once the backup is complete:
+25. We should see the following once the backup is complete:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb19.PNG?raw=true">
 
-26. Return back to Azure Data Studio right click on the backup_test.txt file and select delete and confirm that you wish to do this.
+26. Return to Azure Data Studio, right click on the backup_test.txt file, select delete and then confirm that you wish to do this.
 
-27. Scale both the name node and storage pool `satefulsets` down to zero, obtain their names using this command:
+27. Obtain the names of the name node and storage pool `satefulsets` using this command:
 ```
 kubectl get statefulset -n ca-bdc | egrep '(nmnode|storage)'
 ```
@@ -246,14 +261,14 @@ kubectl scale statefulsets storage-0 --replicas=0 -n ca-bdc
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb20.PNG?raw=true">
 
-31. Hit the restore button, give the restore a name, select the namespace containing the big data cluster, ca-bdc in this example, check the **Replace existing objects** box
-    and finally hit the restore button:
+31. On the screen above - hit **Restore backup**, give the restore a name, select the namespace containing the big data cluster, ca-bdc in this example, check the
+    **Replace existing objects** box and finally hit the **restore** button:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb21.PNG?raw=true">
 
 32. Once the restore has successfuly completed, you should be met with this screen:
 
-<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb21.PNG?raw=true">
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb22.PNG?raw=true">
 
 33. Scale the `statefulsets` back to their original replica values:
 ```
