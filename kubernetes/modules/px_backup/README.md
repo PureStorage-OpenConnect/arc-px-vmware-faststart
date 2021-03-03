@@ -159,7 +159,7 @@ localhost:8080
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb12.PNG?raw=true">
 
-15. Click on the Portworx icon in the top left corner to go back to the main screen which lists the cluster that have been configured to use PX Backup:
+15. Click on the Portworx symbol in the top left corner to go back to the main screen which lists the cluster that is configured to use PX Backup:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb11.PNG?raw=true">
 
