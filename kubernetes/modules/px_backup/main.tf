@@ -75,53 +75,57 @@ resource "azurerm_storage_blob" "pxbackup" {
   type                   = "Block"
 }
 
-resource "null_resource" "px_backup" {
+resource "kubernetes_namespace" "px_backup" {
+  metadata {
+    name = var.namespace 
+  }
+}
+
+resource "helm_release" "px_backup" {
+  name       = "px-backup"
+  repository = "http://charts.portworx.io"
+  chart      = "px-backup"
+  namespace  = kubernetes_namespace.px_backup.metadata.0.name
+
+  set {
+    name  = "version"
+    value = var.helm_chart_version
+  }
+
+  set {
+    name  = "persistentStorage.enabled"
+    value = true 
+  }
+
+  set {
+    name  = "persistentStorage.storageClassName"
+    value = var.storage_class 
+  }
+
+  depends_on = [
+    kubernetes_namespace.px_backup
+  ]
+}
+
+resource "null_resource" "pxbackupctl" {
   provisioner "local-exec" {
     command = <<EOF
-      if ! [ -x "$(command -v helm)" ]; then
-        sudo snap install helm --classic 
-      fi
-
-      if [ $(kubectl get ns $NS | wc -l) -eq 1 ]; then
-        kubectl delete ns $NS
-      fi
-
-      helm repo add portworx http://charts.portworx.io/ && helm repo update
-      helm install px-backup portworx/px-backup --namespace $NS --create-namespace --version $CV --set persistentStorage.enabled=true,persistentStorage.storageClassName="$SC"
-      until [ $(kubectl get po -n $NS | grep -v hook | \
-                  awk '{ s += substr($2,1,1); t +=substr($2,3,1) } END { print s - t}') -eq 0 ]; do
-        echo "."
-        echo "Waiting for Portworx PX-Backup pods to be ready"
-        echo "."
-        kubectl get po -n  $NS
-        sleep 10
-      done
-      echo " "
+      alias BACKUP_POD='kubectl get pods -n px-backup -l app=px-backup -o jsonpath='{.items[0].metadata.name}' 2>/dev/null'
+      sudo kubectl cp -n $NS $(BACKUP_POD):pxbackupctl/linux/pxbackupctl /usr/local/bin/pxbackupctl
+      sudo chmod 775 /usr/local/bin/pxbackupctl 
     EOF
 
     environment = {
-      CV = var.helm_chart_version
-      SC = var.storage_class
       NS = var.namespace
     }
   }
- 
-  provisioner "local-exec" {
-    when     = destroy
-    command  = <<EOF
-      helm uninstall px-backup -n $NS 
-      until [ $(kubectl get po -n $NS | wc -l) -eq 0 ]; do
-        echo "."
-        echo "Waiting for Portworx PX-Backup pods to be destroyed"
-        echo "."
-        kubectl get po -n $NS 
-        sleep 10
-      done
-      kubectl delete ns $NS 
-    EOF
 
-    environment = {
-      NS = "px-backup" 
-    }
-  } 
+  provisioner "local-exec" {
+    when = destroy
+    command = "sudo rm -rf /usr/local/bin/pxbackupctl"
+  }
+
+  depends_on = [
+    helm_release.px_backup
+  ]
 }
