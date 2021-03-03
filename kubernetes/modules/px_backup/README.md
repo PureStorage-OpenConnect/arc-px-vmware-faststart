@@ -157,11 +157,11 @@ localhost:8080
 
 14. We should now have a Cloud Account and Backup Location:
 
-<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb11.PNG?raw=true">
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb12.PNG?raw=true">
 
 15. Click on the Portworx icon in the top left corner to go back to the main screen which lists the cluster that have been configured to use PX Backup:
 
-<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb12.PNG?raw=true">
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb11.PNG?raw=true">
 
 16. Backups can be performed at various level of granularity, ranging from the entire contents of a kubernetes namespace right down to specific object types. In this example, we
     will backup a Big Data Cluster storage pool, but before we do this we will put some data in it by first creating a very simple text file:
