@@ -147,7 +147,7 @@ localhost:8080
 -  **Subscription Id** - The subscription id of the Azure account that the storage account belongs to 
 
 12. Add a backup location, the name that we want to give our Azure blob container in other words. In this particular instance the **cloud account** is
-    named **azure-bdc**, to add a backup location click on **Add** to the right of Backup Location:
+    named **px-backup-azure**, to add a backup location click on **Add** to the right of Backup Location:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb9.PNG?raw=true">
 
