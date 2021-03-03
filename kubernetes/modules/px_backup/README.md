@@ -163,33 +163,34 @@ localhost:8080
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb11.PNG?raw=true">
 
-16. Backups can be performed at various level of granularity, ranging from the entire contents of a kubernetes namespace right down to specific object types. In this example, we
-    will backup a Big Data Cluster storage pool, but before we do this we will put some data in it by first creating a very simple text file:
+16. Backups can be performed at various levels of granularity - ranging from the entire contents of a namespace down to specific object types. In this example, we
+    will backup a Big Data Cluster storage pool, before doing this let us put some data in it by creating a simple text file:
 
 ```
 echo "This is a backup test" > backup_test.txt
 ```
 
-17. Log into the big data cluster, the following will prompt for the big data cluster namespace, the username specified in `var.azdata_username` and finally the value that 
-    `var.AZDATA_PASSWORD` was set to
+17. Log into the big data cluster, the following command will prompt for the big data cluster namespace, the username specified in `var.azdata_username` and finally the 
+value that `var.AZDATA_PASSWORD` is set to:
 ```
 azdata login
 ```
 
-18. Copy the file into the storage pool, enter the value used for `var.AZDATA_PASSWORD` as the Know password when prompted for it:
+18. Copy the file into the storage pool, enter the value used for `var.AZDATA_PASSWORD` as the Knox password when prompted for it:
 ```
 azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/backup_test.txt"
 ```
 
-19. Log into the master pool SQL Server instance via Azure Data Studio with the following to see the file that has just been loaded into the storage pool 
+19. Log into the master pool SQL Server instance via Azure Data Studio in order to see the file that we have just loaded into the storage pool. The following connection
+    details are required: 
 - `compute-node-ip-address`,31433 for the instance
-- SQL Server authentication with the following credentials
+- SQL Server authentication with:
   - username specified in var.azdata_username
   - password specified in var.AZDATA_PASSWORD
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb13.PNG?raw=true">
 
-20. Whilst still in Azure Data Studio, right click on the test_backup.txt file to verify that it contains the line of text that was placed in it in step 16.
+20. Whilst still in Azure Data Studio, right click on the test_backup.txt file to verify that it contains the line of text that was placed in it back in step 16.
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb14.PNG?raw=true">
 
@@ -201,7 +202,7 @@ azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb16.PNG?raw=true">
  
-23. From the middle list of values select `PersistentVolumeClaim` and then from the list of volume claims that appear, select the following:
+23. From the middle list of values select `PersistentVolumeClaim` and select the following from the list of persistent volume claims:
 - data-nmnode-0-0
 - data-storage-0-0
 - data-storage-0-1
@@ -211,18 +212,18 @@ azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb17.PNG?raw=true">
 
-24. Click on the **backup** button in the top right hand corner, give the backup a name, select azure-backup-loc as the location, check the **Now** radio button and then
+24. Click on the **backup** button in the top right hand corner, give the backup a name, select **azure-backup-loc** as the location, check the **Now** radio button and then
     **Create**:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb18.PNG?raw=true">
 
-25. The UI should look as follows once the backup is complete:
+25. We should see the following once the backup is complete:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb19.PNG?raw=true">
 
-26. Return back to Azure Data Studio right click on the backup_test.txt file and select delete and confirm that you wish to do this.
+26. Return to Azure Data Studio, right click on the backup_test.txt file, select delete and then confirm that you wish to do this.
 
-27. Scale both the name node and storage pool `satefulsets` down to zero, obtain their names using this command:
+27. Obtain the names of the name node and storage pool `satefulsets` using this command:
 ```
 kubectl get statefulset -n ca-bdc | egrep '(nmnode|storage)'
 ```
@@ -247,7 +248,7 @@ kubectl scale statefulsets storage-0 --replicas=0 -n ca-bdc
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb20.PNG?raw=true">
 
-31. Hit the restore button, give the restore a name, select the namespace containing the big data cluster, ca-bdc in this example, check the **Replace existing objects** box
+31. Hit the **restore** button, give the restore a name, select the namespace containing the big data cluster, ca-bdc in this example, check the **Replace existing objects** box
     and finally hit the restore button:
 
 <img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb21.PNG?raw=true">
