@@ -225,7 +225,6 @@ azdata bdc hdfs cp --from-path "./backup_test.txt" --to-path "hdfs:/user/azuser/
 ```
 kubectl get statefulset -n ca-bdc | egrep '(nmnode|storage)'
 ```
-    The `namespace` used in this example is ca-bdc, change this to the namespace that contains you big data cluster as appropriate.
     
 28. Two `statefulsets` are returned:
 ```
