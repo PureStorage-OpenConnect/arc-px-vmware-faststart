@@ -255,7 +255,7 @@ kubectl scale statefulsets storage-0 --replicas=0 -n ca-bdc
 
 32. Once the restore has successfuly completed, you should be met with this screen:
 
-<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb21.PNG?raw=true">
+<img style="float: left; margin: 0px 15px 15px 0px;" src="https://github.com/PureStorage-OpenConnect/arc-px-vmware-faststart/blob/main/images/px_backup/pb22.PNG?raw=true">
 
 33. Scale the `statefulsets` back to their original replica values:
 ```
