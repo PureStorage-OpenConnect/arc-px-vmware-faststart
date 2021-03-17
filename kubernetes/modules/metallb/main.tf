@@ -12,7 +12,7 @@ resource "helm_release" "metallb" {
 
   set {
     name  = "version"
-    value = "my-release" 
+    value = var.helm_chart_version 
   }
 
   provisioner "local-exec" {
