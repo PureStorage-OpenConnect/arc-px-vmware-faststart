@@ -4,27 +4,30 @@ This repository contains terraform configurations for deploying SQL Server 2019 
 virtualized via VMware. The "Full stack" solution involves the deployment of four terraform configurations:
 
 - [virtual_machine](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/vmware_vm_pool/modules/virtual_machine/README.md) module for creating 
-  virtual machines to underpin a kubernetes cluster on, this requires that an Ubuntu 18.04 virtual machine template is created, as detailed in the instructions provided
+  virtual machines to underpin a Kubernetes cluster on, this requires that an Ubuntu 18.04 virtual machine template is created, as detailed in the instructions provided
   in this documentation. 
 
 - [kubernetes_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/kubernetes_cluster/README.md) module for creating am 
-  kubernetes cluster.
+  Kubernetes cluster.
+  
+- [metallb](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/metallb/README.md) for deploying a software load balancer to a
+  Kubernetes cluster in order to facilitate LoadBalancer services.
 
 - [px_store](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/px_store/README.md) module for deploying the Portworx 
-  storage platform to a kubernetes cluster. Portworx PX Store is a 100% software defined Kubernetes storage solution that can deployed to Red Hat OpenShift, Kubernetes on-
+  storage platform to a Kubernetes cluster. Portworx PX Store is a 100% software defined Kubernetes storage solution that can deployed to Red Hat OpenShift, Kubernetes on-
   premises, Google Anthos, AKS, EKS or GKE. 
   **Note that [Portworx Essentials](https://docs.portworx.com/concepts/portworx-essentials/) - which PX Store comes with, is free to use.**
   
-- [px_backup](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/px_backup/README.md) module for backing up kubernetes clusters,
-  the documentation for this module includes a walked through example of how to backup and restore a big data cluster storage pool. PX Backup works with any CSI compliant storage
-  plugin that supports snapshots - however, to leverage incremental backups you must use PX Store. PX Backup supports objects level backups and backup destinations of S3 in
-  AWS/GCP and on-premises and also Azure blob storage. Further information is provided in the [Portworx PX Backup documentation](https://portworx.com/products/px-backup/).
+- [px_backup](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/kubernetes/modules/px_backup/README.md) module for backing up Kubernetes clusters,
+  the documentation for this module includes a walked through example of how to backup and restore a big data cluster storage pool. PX Backup works with any CSI compliant
+  storage plugin that supports snapshots - however, to leverage incremental backups you must use PX Store. PX Backup supports objects level backups and backup destinations of S3 
+  in AWS/GCP and on-premises and also Azure blob storage. Further information is provided in the [Portworx PX Backup documentation](https://portworx.com/products/px-backup/).
   
 - [big_data_cluster](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/big_data_cluster/README.md) module for deploying
   a big data cluster to a kubernetes cluster.
   
 - [azure_arc_ds_controller](https://github.com/PureStorage-OpenConnect/Arc-PX-VMware-Faststart/blob/main/azure_data_services/modules/azure_arc_ds_controller/README.md) module
-  for deploying an Azure Arc enabled Data Services Controller to a kubernetes cluster.
+  for deploying an Azure Arc enabled Data Services Controller to a Kubernetes cluster.
   
 **However**, each module can be deployed independantly, meaning - if you are using:
 
