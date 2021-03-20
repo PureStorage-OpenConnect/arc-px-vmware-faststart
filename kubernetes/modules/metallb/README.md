@@ -39,6 +39,18 @@ The minimum set of variables that need to be configured consists of those with n
 
 MetalLB requires a pool of IP addresses available outside of the Kubernetes cluster, this should be sufficiently large to cater for each LoadBalancer service.
 
+# Testing
+
+This repo comes with a manifest to deploy nginx as follows:
+```
+kubectl apply -f nginx-deployment.yaml
+```
+If MetalLB has been deployed successfully, when:
+```
+kubectl get service
+```
+is issued the nginx service shuld have an external IP address.
+
 # Known Issues / Limitations
 
 None noted.
